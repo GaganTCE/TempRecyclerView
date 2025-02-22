@@ -1,6 +1,6 @@
 package com.example.temprecyclerview.interfaces
 
-interface InteractionIntr {
+interface InteractionIntr{
     fun showToast(position : Int)
-    fun removeItem(position:Int)
+    fun removeItem(position: Int)
 }

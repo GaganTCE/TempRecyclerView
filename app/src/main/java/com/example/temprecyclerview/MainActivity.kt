@@ -12,10 +12,10 @@ import com.example.temprecyclerview.databinding.ActivityMainBinding
 import com.example.temprecyclerview.domains.StudentDomain
 import com.example.temprecyclerview.interfaces.InteractionIntr
 
-class MainActivity : AppCompatActivity(), InteractionIntr {
+class MainActivity : AppCompatActivity() , InteractionIntr{
     private lateinit var binding: ActivityMainBinding
-    private var studentList : ArrayList<StudentDomain> = arrayListOf()
-    private lateinit var adapter : StudentAdapter
+    private var studentList: ArrayList<StudentDomain> = arrayListOf()
+    private lateinit var adapter: StudentAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,24 +26,25 @@ class MainActivity : AppCompatActivity(), InteractionIntr {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        studentList.add(StudentDomain("First","1"))
-        studentList.add(StudentDomain("Second","2"))
-        studentList.add(StudentDomain("Third","3"))
-        studentList.add(StudentDomain("Fourth","4"))
-        studentList.add(StudentDomain("Fifth","5"))
-        adapter = StudentAdapter(studentList, this)
+        studentList.add(StudentDomain("First", "1"))
+        studentList.add(StudentDomain("Second", "2"))
+        studentList.add(StudentDomain("Third", "3"))
+        studentList.add(StudentDomain("Fourth", "4"))
+        studentList.add(StudentDomain("Fifth", "5"))
+
+        adapter = StudentAdapter(studentList,this)
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-
     }
 
     override fun showToast(position: Int) {
-        Toast.makeText(this,"You Selected : ${studentList[position].studentName}",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,"You selected : ${studentList[position].studentName}",Toast.LENGTH_SHORT).show()
     }
 
     override fun removeItem(position: Int) {
-        studentList.remove(studentList[position])
-        adapter.notifyItemRemoved(position)
-        adapter.notifyItemRangeRemoved(studentList.size - 1, studentList.size)
+        studentList.removeAt(position)
+        adapter.notifyDataSetChanged()
     }
+
 }
+
